@@ -47,6 +47,7 @@ private:
 	NodePointer front, rear; 
 	vector<string> table;
 	vector<string>table2;
+	vector<string>prime_imp;
 	int c;
 	
 };
@@ -284,9 +285,7 @@ void deq<Type>::checking_nodes()
 	{
 		cout << cursor->decimal_no << "          " << cursor->binary << endl;
 		cursor = cursor->next;
-
 	}
-	
 }
 
 template<class Type>
@@ -307,20 +306,28 @@ void deq<Type>::compare()
 		cursor2 = cursor1->next;
 	}
 	int len = table.size();
-	for(int i=0;i<len-1;i++)
-		for (int j = 0; j < len; j++)
+	for (int i = 0; i < len - 1; i++)
+	{
+		bool prime = false;
+		string a, b;
+		a = table[i];
+		for (int j = i + 1; j < len; j++)
 		{
-			string a, b;
-			a = table[i];
+
 			b = table[j];
 			for (int k = 0; k < a.length() - 1; k++)
 			{
-			int cnt = 0;
-			if (a[k] != b[k])
-				cnt++;
-			if (cnt == 1)
-				compare_binary(table[i], table[j], c);
+				int cnt = 0;
+				if (a[k] != b[k])
+					cnt++;
+				if (cnt == 1)
+				{
+					compare_binary(table[i], table[j], c);
+				}
 			}
+			if (!prime)
+				prime_imp.push_back(a);
+		}
 		}
 	system("pause");
 }
@@ -348,8 +355,6 @@ void deq<Type>::compare_binary(string first, string sec,int c)
 			table.push_back(first);
 		}
 	}
-
 }
-
 #endif // !DEQ_h
 
